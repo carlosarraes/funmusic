@@ -27,6 +27,7 @@ class Album extends Component {
   fetchData = async (id) => {
     const response = await getMusics(id);
     const info = response[0];
+    console.log(info);
     const data = response.slice(1);
     this.setState({ info, data, done: true });
   };
@@ -36,23 +37,28 @@ class Album extends Component {
   };
 
   render() {
-    const { info: { artistName, collectionName }, data, loading } = this.state;
+    const { info: { artistName, collectionName, artworkUrl60 }, data, loading } = this.state;
     return (loading ? <Loading />
       : (
-        <div data-testid="page-album">
-          <p data-testid="artist-name">{`Artist Name: ${artistName}`}</p>
-          <p data-testid="album-name">{`Collection Name: ${collectionName}`}</p>
-          {data.map((music) => (
-            <MusicCard
+        <section data-testid="page-album" className='flex justify-between w-full mt-6'>
+          <div className='flex flex-col w-1/2'>
+            <img src={artworkUrl60} alt={collectionName} className="w-48 h-48 self-center" />
+            <p data-testid="artist-name" className='self-center mt-6'><span className='font-bold'>Artist:</span> {artistName}</p>
+            <p data-testid="album-name" className='self-center mt-2'><span className='font-bold'>Collection:</span> {collectionName}</p>
+          </div>
+          <div className='w-1/2 -mt-1'>
+            {data.map((music) => (
+              <MusicCard
               key={ music.trackId }
               trackId={ music.trackId }
               trackName={ music.trackName }
               previewUrl={ music.previewUrl }
               music={ music }
               getTrackId={ this.getTrackId }
-            />
-          ))}
-        </div>
+              />
+              ))}
+          </div>
+        </section>
       )
     );
   }

@@ -57,7 +57,7 @@ class App extends Component {
 
   handleSearch = async (e) => {
     e.preventDefault();
-    this.setState({ searchLoading: true });
+    this.setState({ searchLoading: true, });
     const { search } = this.state;
     const data = await searchAlbumsAPI(search);
     this.setState({
@@ -82,39 +82,47 @@ class App extends Component {
       albums } = this.state;
 
     return (
-      <div>
+      <>
         <Switch>
           <Route path="/profile/edit">
-            <Header />
-            <ProfileEdit />
+            <section className='points flex flex-col'>
+              <Header />
+              <ProfileEdit />            
+            </section>
           </Route>
           <Route path="/profile">
-            <Header />
-            <Profile />
+            <section className='points flex flex-col'>
+              <Header />
+              <Profile />
+            </section>
           </Route>
           <Route
             path="/album/:id"
             render={ (props) => (
-              <>
+              <section className='points flex flex-col'>
                 <Header />
                 <Album { ...props } />
-              </>
+              </section>
             ) }
           />
           <Route path="/search">
-            <Header />
-            <Search
-              search={ search }
-              handleSearch={ this.handleSearch }
-              handleChange={ this.handleChange }
-              searchButton={ searchButton }
-              searchLoading={ searchLoading }
-            />
-            { gotAlbums && <Albums albums={ albums } searched={ searched } /> }
+            <section className='points flex flex-col'>
+              <Header />
+              <Search
+                search={ search }
+                handleSearch={ this.handleSearch }
+                handleChange={ this.handleChange }
+                searchButton={ searchButton }
+                searchLoading={ searchLoading }
+              />
+              { gotAlbums && <Albums albums={ albums } searched={ searched } /> }
+            </section>
           </Route>
           <Route path="/favorites">
-            <Header />
-            <Favorites />
+            <section className='points flex flex-col'>
+              <Header />
+              <Favorites />            
+            </section>
           </Route>
           <Route
             exact
@@ -130,7 +138,7 @@ class App extends Component {
           </Route>
           <Route path="*" component={ NotFound } />
         </Switch>
-      </div>
+      </>
     );
   }
 }
