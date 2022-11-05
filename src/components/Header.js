@@ -31,7 +31,7 @@ class Header extends Component {
               </div>
               <div className='flex justify-between gap-4'>
                 <h2 data-testid="header-user-name" className='self-center hidden sm:block'>{ user }</h2>
-                <img src={img} alt={user} className="w-8 h-8 rounded-full self-center ring-2 ring-green-500" />
+                {img && <img src={img} alt={user} className="w-8 h-8 rounded-full self-center ring-2 ring-green-500" />}
               </div>
             </div>
           </nav>
